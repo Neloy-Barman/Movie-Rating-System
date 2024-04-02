@@ -22,18 +22,14 @@
         </form>
         <div><h1 align="left">All Movies</h1></div>
         <div>
+            {% for movie in movies %}
             <div class="card card_element">
                 <div class="card-body">
-                    <h4 class="card-title">Home Alone</h4>
-                    <p class="card-subtitle">Genre: Comedy&nbsp;&nbsp;&nbsp;Rating: PG</p>
+                    <h4 class="card-title">{{movie["name"]}}</h4>
+                    <p class="card-subtitle">Genre: {{movie["genre"]}}&nbsp;&nbsp;&nbsp;Rating: {{movie["rating"]}}</p>
                 </div>
             </div>
-            <div class="card card_element">
-                <div class="card-body">
-                    <h4 class="card-title">Home Alone</h4>
-                    <p class="card-text">Genre: Comedy&nbsp;&nbsp;Rating: PG</p>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </body>
