@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Movie</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div><h1 align="center">Add a movie</h1></div>
+        <form>
+            <div class="form-group">
+              <label for="MovieName">Movie Name</label>
+              <input type="text" class="form-control" id="movieNameInput" placeholder="Enter a Movie">
+            </div>
+            <div class="form-group">
+                <label for="Genre">Genre</label>
+                <select class="form-control" id="genreInput">
+                  <option>Action</option>
+                  <option>Comedy</option>
+                  <option>Crime</option>
+                  <option>Adventure</option>
+                  <option>Romance</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="Rating">Rating</label>
+                <select class="form-control" id="ratingInput">
+                  <option>G</option>
+                  <option>PG</option>
+                  <option>PG-13</option>
+                  <option>R</option>
+                  <option>NR</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="ReleaseDate">Release Date</label>
+                <input type="date" class="form-control" id="releaseDateInput">
+              </div>
+            <div align="center"><button type="submit" class="btn btn-primary">ADD</button></div>
+          </form>
+    </div>
+</body>
+</html>

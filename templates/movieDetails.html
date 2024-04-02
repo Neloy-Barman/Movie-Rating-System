@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div><h1 align="center">Movie Details</h1></div>
+        <div class="grid_container">
+            <div align="right">
+                <p class="detailsLabel">Movie Name</p>
+                <p class="detailsLabel">Genre</p>
+                <p class="detailsLabel">Rating</p>
+                <p class="detailsLabel">Release Date</p>
+                <p class="detailsLabel">Average Ratings</p>
+            </div>
+            <div align="left">
+                <p>Home Alone</p>
+                <p>Comedy</p>
+                <p>PG</p>
+                <p>01-04-1996</p>
+                <p>4.00</p>
+            </div>
+        </div>
+        <form>
+            <div class="form-group">
+                <label for="RatingPoint">Ratings</label>
+                <input type="text" class="form-control" id="ratingsInput" placeholder="Enter a rating point on a scale of 1.00-5.00">
+            </div>
+            <div align="right"><button type="submit" class="btn btn-primary">Submit a Rating</button></div>
+        </form>
+    </div>
+</body>
+</html>
