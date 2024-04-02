@@ -12,23 +12,23 @@
 </head>
 <body>
     <div class="container">
-        <form>
+        <!-- <form>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Search for a movie" aria-label="Search" aria-describedby="searchIcon">
-                <!-- <div class="input-group-append">
+                <div class="input-group-append">
                   <span class="input-group-text" id="searchIcon"><i class="bi bi-search"></i></span>
-                </div> -->
-            </div>
-        </form>
-        <div><h1 align="left">All Movies</h1></div>
-        <div>
-            {% for movie in movies %}
-            <div class="card card_element">
-                <div class="card-body">
-                    <h4 class="card-title">{{movie["name"]}}</h4>
-                    <p class="card-subtitle">Genre: {{movie["genre"]}}&nbsp;&nbsp;&nbsp;Rating: {{movie["rating"]}}</p>
                 </div>
             </div>
+        </form> -->
+        <div><h1 align="center">All Movies</h1></div>
+        <div>
+            {% for movie in movies %}
+            <a href="http://127.0.0.1:5000/movies/{{movie[0]}}"><div class="card card_element">
+                <div class="card-body">
+                    <h4 class="card-title">{{movie[1]}}</h4>
+                    <p class="card-subtitle">Genre: {{movie[2]}}&nbsp;&nbsp;&nbsp;Rating: {{movie[3]}}</p>
+                </div>
+            </div></a>
             {% endfor %}
         </div>
     </div>

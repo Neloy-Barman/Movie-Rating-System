@@ -13,14 +13,14 @@
 <body>
     <div class="container">
         <div><h1 align="center">Add a movie</h1></div>
-        <form>
+        <form method="post">
             <div class="form-group">
               <label for="MovieName">Movie Name</label>
-              <input type="text" class="form-control" id="movieNameInput" placeholder="Enter a Movie">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Enter a Movie">
             </div>
             <div class="form-group">
                 <label for="Genre">Genre</label>
-                <select class="form-control" id="genreInput">
+                <select class="form-control" id="genreInput" name="genre">
                   <option>Action</option>
                   <option>Comedy</option>
                   <option>Crime</option>
@@ -30,7 +30,7 @@
               </div>
               <div class="form-group">
                 <label for="Rating">Rating</label>
-                <select class="form-control" id="ratingInput">
+                <select class="form-control" id="ratingInput" name="rating">
                   <option>G</option>
                   <option>PG</option>
                   <option>PG-13</option>
@@ -40,7 +40,7 @@
               </div>
               <div class="form-group">
                 <label for="ReleaseDate">Release Date</label>
-                <input type="date" class="form-control" id="releaseDateInput">
+                <input type="date" class="form-control" id="releaseDateInput" name="release_date">
               </div>
             <div align="center"><button type="submit" class="btn btn-primary">ADD</button></div>
           </form>

@@ -22,17 +22,17 @@
                 <p class="detailsLabel">Average Ratings</p>
             </div>
             <div align="left">
-                <p>{{movie["name"]}}</p>
-                <p>{{movie["genre"]}}</p>
-                <p>{{movie["rating"]}}</p>
-                <p>{{movie["release_date"]}}</p>
-                <p>{{avgRatings["average_ratings"]}}</p>
+                <p>{{movie[1]}}</p>
+                <p>{{movie[2]}}</p>
+                <p>{{movie[3]}}</p>
+                <p>{{movie[4]}}</p>
+                <p>{{avgRatings}}</p>
             </div>
         </div>
-        <form>
+        <form method="post">
             <div class="form-group">
                 <label for="RatingPoint">Ratings</label>
-                <input type="text" class="form-control" id="ratingsInput" placeholder="Enter a rating point on a scale of 1.00-5.00">
+                <input type="text" class="form-control" name="rating" id="ratingsInput" placeholder="Enter a rating point on a scale of 1.00-5.00">
             </div>
             <div align="right"><button type="submit" class="btn btn-primary">Submit a Rating</button></div>
         </form>
