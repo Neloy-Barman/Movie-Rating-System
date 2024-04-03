@@ -9,13 +9,6 @@ from bluePrints.movies.controller import addMovie
 
 movies = Blueprint("movies", __name__, template_folder="templates")
 
-# @movies.post("/movies", methods=['GET'])
-# @jwt_required()
-# def allMovies():
-#     movies = fetchMovies()
-#     if movies:
-#         return render_template("allMovies.html", movies = movies)
-
 movies.route("/movies", methods=['GET'])(allMovies)  
 movies.route("/movies/<int:movieId>", methods=['GET', 'POST'])(movieDetails)
 movies.route("/addMovie", methods=['GET', 'POST'])(addMovie)

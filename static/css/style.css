@@ -15,8 +15,13 @@
 }
 
 .detailsLabel{
-    font-weight: 900;
+    font-size: large;
     font-style: italic;
+}
+
+.details{
+    font-size: large;
+    color: #100e85;
 }
 
 .card_element{
