@@ -4,6 +4,8 @@ from flask import session
 from flask import redirect
 from flask import render_template
 
+DATABASE_URI = "postgres://mrs_db_user:1zfGVbsqEWLfl4tTKn3ZwXmoWqtYhNUj@dpg-co62pt6v3ddc7399i9h0-a.oregon-postgres.render.com/mrs_db"
+
 def login():
     if request.method == 'POST':
 
@@ -11,8 +13,7 @@ def login():
         password = request.form.get('password')
 
         if email and password:
-            # connection = psycopg2.connect(**dbParams)
-            connection = psycopg2.connect("postgres://mrs_db_user:1zfGVbsqEWLfl4tTKn3ZwXmoWqtYhNUj@dpg-co62pt6v3ddc7399i9h0-a.oregon-postgres.render.com/mrs_db")
+            connection = psycopg2.connect(DATABASE_URI)
             cur = connection.cursor()
 
             query = f"SELECT * FROM users WHERE email='{email}' and password='{password}';"
