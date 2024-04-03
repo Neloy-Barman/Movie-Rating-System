@@ -1,3 +1,7 @@
+import sys 
+# To avoid generating pycache 
+sys.dont_write_bytecode = True
+
 import psycopg2
 from flask import Flask
 from flask import render_template
@@ -5,8 +9,21 @@ from flask import request
 from flask import redirect
 from flask import session
 
+from bluePrints.user.user import user
+
 app = Flask(__name__)
-# app.secret_key = 'Movie_Rating_System'
+
+app.secret_key = 'Movie_Rating_System'
+
+
+app.register_blueprint(user)
+
+# dbParams = {
+#     "host": "localhost",
+#     "database": "movieRatingSystem",
+#     "user": "postgres",
+#     "password": "1234", 
+# }
 
 dbParams = {
     "host": "localhost",
@@ -16,31 +33,32 @@ dbParams = {
 }
 
 
-@app.route("/", methods=['GET','POST'])
-def loginPage():
-    if request.method == 'POST':
+# @app.route("/", methods=['GET','POST'])
+# def loginPage():
+#     if request.method == 'POST':
 
-        email = request.form.get('email')
-        password = request.form.get('password')
+#         email = request.form.get('email')
+#         password = request.form.get('password')
 
-        if email and password:
-            connection = psycopg2.connect(**dbParams)
-            cur = connection.cursor()
+#         if email and password:
+#             # connection = psycopg2.connect(**dbParams)
+#             connection = psycopg2.connect("postgres://mrs_db_user:1zfGVbsqEWLfl4tTKn3ZwXmoWqtYhNUj@dpg-co62pt6v3ddc7399i9h0-a.oregon-postgres.render.com/mrs_db")
+#             cur = connection.cursor()
 
-            query = f"SELECT * FROM users WHERE email='{email}' and password='{password}';"
+#             query = f"SELECT * FROM users WHERE email='{email}' and password='{password}';"
             
-            cur.execute(query)
-            userData = cur.fetchone()
+#             cur.execute(query)
+#             userData = cur.fetchone()
             
-            if userData:
-                # print("Redirect")
-                session['userId'] = userData[0]
-                print(f"This is user Id: {session['userId']}")
-                return redirect('movies')
-        else:
-            print("Empty value")
+#             if userData:
+#                 # print("Redirect")
+#                 session['userId'] = userData[0]
+#                 print(f"This is user Id: {session['userId']}")
+#                 return redirect('movies')
+#         else:
+#             print("Empty value")
 
-    return render_template('login.html')
+#     return render_template('login.html')
 
 
 # Fetching all the movies from database
