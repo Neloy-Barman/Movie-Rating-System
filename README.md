@@ -17,6 +17,9 @@
     <li><strong>I focused mainly on the backend implementation rather than beautifying frontend.</strong></li>
 </ul>
 
+<h3><code style="color:blue">Overview</code></h3>
+At first I created the database using <strong>PostgreSQL</strong> in my localhost and tested if those works. Then I deployed the database to cloud service provided by <strong>render.com</strong>. Now to create the web application, I chose <strong>Flask</strong> as the framework. There are 3 different database schemas. So, for each of them I maintained the <strong>MVC</strong> architecture and placed them individually. Those files contain logics to fetch data, handling errors and show them. I used <strong>psycopg2</strong> to create connection with the server database. I created the individual api's and tested them with <strong>Postman</strong>. To show the data, I created relavant <strong>HTML</strong> files with <strong>CSS</strong> & <strong>Bootstrap</strong> styling. Finally, I rendered those files as webpages with user interaction.   
+
 
 <h3><code style="color:blue">Tech Stack</code></h3>
 <ul>
