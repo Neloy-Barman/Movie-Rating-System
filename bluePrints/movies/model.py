@@ -1,22 +1,26 @@
 import psycopg2
+from psycopg2 import OperationalError, Error
 
 DATABASE_URI = "postgres://mrs_db_user:1zfGVbsqEWLfl4tTKn3ZwXmoWqtYhNUj@dpg-co62pt6v3ddc7399i9h0-a.oregon-postgres.render.com/mrs_db"
 
 def fetchMovies():
-    connection = psycopg2.connect(DATABASE_URI)
-    cur = connection.cursor()
+    try:   
+        connection = psycopg2.connect(DATABASE_URI)
+        cur = connection.cursor()
     
-    query = "SELECT * FROM movies;"
-    cur.execute(query)
+        query = "SELECT * FROM movies;"
+        cur.execute(query)
 
-    movies = cur.fetchall()
-
-    cur.close()
-    connection.close()
-
-    if movies:
-        return movies
-    return None
+        movies = cur.fetchall()
+    except e as e:
+        print(f"Error: {e}")
+        return None
+    finally:
+        cur.close()
+        connection.close()
+        if movies:
+            return movies
+        return None
 
 def fetchMovie(movieId: int):
     connection = psycopg2.connect(DATABASE_URI)

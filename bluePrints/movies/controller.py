@@ -1,6 +1,7 @@
-import psycopg2
 from flask import request
+from flask import session
 from flask import render_template
+
 from bluePrints.movies.model import fetchMovie
 from bluePrints.movies.model import fetchMovies
 from bluePrints.movies.model import insertMovie
@@ -11,44 +12,52 @@ DATABASE_URI = "postgres://mrs_db_user:1zfGVbsqEWLfl4tTKn3ZwXmoWqtYhNUj@dpg-co62
 
 # Fetch all the movies from the database
 def allMovies():
-    movies = fetchMovies()
-    if movies:
-        return render_template("allMovies.html", movies = movies)
+    if "authorizationToken" in session:
+        movies = fetchMovies()
+        if movies:
+            return render_template("allMovies.html", movies = movies)
+    else:
+        return render_template("notAvailable.html")
     
 # Fetch a specific movie details
 def movieDetails(movieId: int):
+    if "authorizationToken" in session:
+        movie = fetchMovie(movieId=movieId)
+        average = avgRatings(movieId=movieId)
+        
+        if average == 0 or not average:
+            average = "Not Rated yet!!"
+        else:
+            average = round(average, 2) 
 
-    movie = fetchMovie(movieId=movieId)
-    average = avgRatings(movieId=movieId)
-    
-    if average == 0 or not average:
-        average = "Not Rated yet!!"
+        if not movie or not average:
+            return {"message": "An unexpected error occured!!"}
+        
+        print(f"This is average: {average}")
+
+        if request.method == 'POST':
+            rating = request.form['rating']
+            return addRatings(movieId=movieId, rating=float(rating))
+        
+        return render_template('movieDetails.html', movie = movie, average = average)
     else:
-        average = round(average, 2) 
-
-    if not movie or not average:
-        return {"message": "An unexpected error occured!!"}
-    
-    print(f"This is average: {average}")
-
-    if request.method == 'POST':
-        rating = request.form['rating']
-        return addRatings(movieId=movieId, rating=float(rating))
-    
-    return render_template('movieDetails.html', movie = movie, average = average)
+        return render_template("notAvailable.html")
 
 
 # Adding a new movie to the database
 def addMovie():
-    if request.method == "POST":
-        name = request.form['name']
-        genre = request.form['genre']
-        rating = request.form['rating']
-        release_date = request.form['release_date']
+    if "authorizationToken" in session:
+        if request.method == "POST":
+            name = request.form['name']
+            genre = request.form['genre']
+            rating = request.form['rating']
+            release_date = request.form['release_date']
 
-    add = insertMovie(name=name, genre=genre, rating=rating, release_date=release_date)
+        add = insertMovie(name=name, genre=genre, rating=rating, release_date=release_date)
 
-    if add:
-        return {"message": "Movie added successfully!!"}
+        if add:
+            return {"message": "Movie added successfully!!"}
 
-    return render_template("addMovie.html")
+        return render_template("addMovie.html")
+    else:
+        return render_template("notAvailable.html")
