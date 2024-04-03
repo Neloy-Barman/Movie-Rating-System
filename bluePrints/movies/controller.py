@@ -1,44 +1,41 @@
 import psycopg2
 from flask import request
 from flask import render_template
+from bluePrints.movies.model import fetchMovie
+from bluePrints.movies.model import fetchMovies
+from bluePrints.movies.model import insertMovie
 from bluePrints.ratings.controller import addRatings
+from bluePrints.ratings.controller import avgRatings
 
 DATABASE_URI = "postgres://mrs_db_user:1zfGVbsqEWLfl4tTKn3ZwXmoWqtYhNUj@dpg-co62pt6v3ddc7399i9h0-a.oregon-postgres.render.com/mrs_db"
 
 # Fetch all the movies from the database
 def allMovies():
-    connection = psycopg2.connect(DATABASE_URI)
-    query = "SELECT * FROM movies;"
-    cur = connection.cursor()
-    cur.execute(query)
-    movies = cur.fetchall()
-
-    cur.close()
-    connection.close()
-
-    return render_template("allMovies.html", movies = movies)
-
+    movies = fetchMovies()
+    if movies:
+        return render_template("allMovies.html", movies = movies)
+    
 # Fetch a specific movie details
 def movieDetails(movieId: int):
-    connection = psycopg2.connect(DATABASE_URI)
-    cur = connection.cursor()
 
-    movieQuery = f"SELECT * FROM movies WHERE id={movieId};"
-    cur.execute(movieQuery)
-    movie = cur.fetchone()
-
-    ratingQuery = f"SELECT AVG(rating) FROM ratings WHERE movie_id={movieId};"
-    cur.execute(ratingQuery)
-    avgRatings = cur.fetchone()
-
-    if not movie:
-        return {"Error": "Movie not found!!!!"}
+    movie = fetchMovie(movieId=movieId)
+    average = avgRatings(movieId=movieId)
     
+    if average == 0 or not average:
+        average = "Not Rated yet!!"
+    else:
+        average = round(average, 2) 
+
+    if not movie or not average:
+        return {"message": "An unexpected error occured!!"}
+    
+    print(f"This is average: {average}")
+
     if request.method == 'POST':
         rating = request.form['rating']
         return addRatings(movieId=movieId, rating=float(rating))
     
-    return render_template('movieDetails.html', movie = movie, avgRatings = round(avgRatings[0], 2))
+    return render_template('movieDetails.html', movie = movie, average = average)
 
 
 # Adding a new movie to the database
@@ -49,15 +46,9 @@ def addMovie():
         rating = request.form['rating']
         release_date = request.form['release_date']
 
-        connection = psycopg2.connect(DATABASE_URI)
-        cur = connection.cursor()
-        
-        query = f"INSERT INTO movies(name, genre, rating, release_date) VALUES('{name}', '{genre}', '{rating}', TO_DATE('{release_date}', 'YYYY/MM/DD'));"
-        cur.execute(query)
+    add = insertMovie(name=name, genre=genre, rating=rating, release_date=release_date)
 
-        cur.close()
-        connection.commit()
-        connection.close()
+    if add:
+        return {"message": "Movie added successfully!!"}
 
-        print("Data added")
     return render_template("addMovie.html")
